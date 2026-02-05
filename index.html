@@ -5,18 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Turab Haider - Computer Science Student CV">
     <title>Turab Haider | CS Portfolio</title>
+    
     <link rel="stylesheet" href="css/style.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+
     <div class="mesh-bg">
         <div class="mesh-color color-1"></div>
         <div class="mesh-color color-2"></div>
         <div class="mesh-color color-3"></div>
         <div class="mesh-color color-4"></div>
+    </div>
+
+    <!-- Navigation Container -->
+    <div class="nav-container">
+        <nav class="pill-nav">
+            <ul class="pill-nav-list">
+                <li><a href="#profile" class="pill-nav-link active">Home</a></li>
+                <li><a href="#about" class="pill-nav-link">About</a></li>
+                <li><a href="#projects" class="pill-nav-link">Projects</a></li>
+                <li><a href="#contact" class="pill-nav-link">Contact</a></li>
+                <li><a href="#download" class="pill-nav-link">Download</a></li>
+            </ul>
+        </nav>
+
+        <!-- Theme Toggle Capsule -->
+        <button id="theme-toggle" class="theme-capsule" aria-label="Toggle Dark/Light Mode">
+            <i class="fa-solid fa-sun"></i>
+        </button>
     </div>
 
     <div class="container">
@@ -31,12 +53,14 @@
                     <span class="pulse"></span> Open to Work
                 </div>
             </div>
+            
             <div class="header-actions">
                 <div class="profile-photo-placeholder"></div>
             </div>
         </header>
 
         <main class="bento-grid">
+            
             <section class="bento-card about-card span-2" id="about">
                 <h2>About Me</h2>
                 <p>Driven and accomplished professional blending Computer Science with creative content creation. Seeking to leverage software development and digital media skills to provide innovative solutions.</p>
@@ -48,6 +72,7 @@
                 <p class="dim">BS Computer Science</p>
                 <p class="highlight">Batch 2023</p>
                 <p class="dim campus-text">Lahore Campus</p>
+                
                 <div class="education-mini-item">
                     <h3>Intermediate</h3>
                     <p class="dim">Pre-Engineering (80%)</p>
@@ -76,7 +101,8 @@
             <section class="bento-card experience-card span-2">
                 <h2>Work Experience</h2>
                 <div class="timeline-container">
-                    <div class="timeline-item">
+                    
+                    <div class="timeline-item interactive" onclick="toggleAccordion(this)">
                         <div class="timeline-marker"></div>
                         <div class="timeline-header">
                             <div class="header-text">
@@ -84,12 +110,14 @@
                                 <h3>Senior Video Editor</h3>
                                 <p class="dim">Wix Patriots</p>
                             </div>
+                            <i class="fa-solid fa-chevron-down accordion-icon"></i>
                         </div>
                         <div class="timeline-content">
                             <p>Led post-production workflows, editing high-retention content and managing video strategies for diverse clients.</p>
                         </div>
                     </div>
-                    <div class="timeline-item">
+
+                    <div class="timeline-item interactive" onclick="toggleAccordion(this)">
                         <div class="timeline-marker"></div>
                         <div class="timeline-header">
                             <div class="header-text">
@@ -97,15 +125,190 @@
                                 <h3>Web Developer</h3>
                                 <p class="dim">Freelance / Remote</p>
                             </div>
+                            <i class="fa-solid fa-chevron-down accordion-icon"></i>
                         </div>
                         <div class="timeline-content">
                             <p>Created high-quality, user-focused websites using modern web technologies including HTML, CSS, and WordPress.</p>
                         </div>
                     </div>
+
                 </div>
             </section>
+
+            <section class="bento-card projects-card span-3" id="projects">
+                <h2>Projects</h2>
+                <div class="timeline-container">
+                    
+                    <div class="timeline-item interactive" onclick="toggleAccordion(this)">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-header">
+                            <div class="header-text">
+                                <span class="timeline-date">2025</span>
+                                <h3>Candy Crush Clone</h3>
+                                <p class="dim">C++ & SFML</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="content-wrapper">
+                                <p>A graphical game featuring complex grid logic, candy matching algorithms, and smooth animations using the SFML library.</p>
+                                <div class="project-preview">
+                                    <video src="images/candy-crush-demo.mp4" muted loop autoplay></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item interactive" onclick="toggleAccordion(this)">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-header">
+                            <div class="header-text">
+                                <span class="timeline-date">2024</span>
+                                <h3>Banking Management System</h3>
+                                <p class="dim">C++ (Terminal Based)</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="content-wrapper">
+                                <p>A robust console application handling user logins, secure transactions, withdrawals, and account management logic.</p>
+                                <div class="project-preview">
+                                    <video src="images/banking-demo.mp4" muted loop autoplay></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item interactive" onclick="toggleAccordion(this)">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-header">
+                            <div class="header-text">
+                                <span class="timeline-date">2025</span>
+                                <h3>Bubble Typing Game</h3>
+                                <p class="dim">x86 Assembly Language</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="content-wrapper">
+                                <p>Low-level game development interacting directly with video memory and keyboard interrupts for high-performance typing mechanics.</p>
+                                <div class="project-preview">
+                                    <video src="images/assembly-demo.mp4" muted loop autoplay></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item interactive" onclick="toggleAccordion(this)">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-header">
+                            <div class="header-text">
+                                <span class="timeline-date">2026 (Current)</span>
+                                <h3>Attendance App</h3>
+                                <p class="dim">Flutter & Firebase</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="content-wrapper">
+                                <p>Developing a mobile solution with local notifications, offline storage, and real-time database integration.</p>
+                                <div class="project-preview portrait">
+                                    <video src="images/app-demo.mp4" muted loop autoplay></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="bento-card skills-card">
+                <h2>Key Strengths</h2>
+                <div class="tags">
+                    <span>Public Dealing</span>
+                    <span>Negotiation</span>
+                    <span>Team Management</span>
+                    <span>Content Strategy</span>
+                    <span>Persuasion</span>
+                </div>
+            </section>
+
+            <section class="bento-card tech-card">
+                <h2>Tech Stack</h2>
+                
+                <div class="tech-category">
+                    <h3>Development</h3>
+                    <div class="tags">
+                        <span>C++</span>
+                        <span>Python</span>
+                        <span>x86 Assembly</span>
+                        <span>Flutter</span>
+                        <span>Three.js</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <h3>Creative Suite</h3>
+                    <div class="tags">
+                        <span>DaVinci Resolve</span>
+                        <span>After Effects</span>
+                        <span>Photoshop</span>
+                        <span>Premiere Pro</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bento-card social-card" id="contact">
+                <h2>Connect</h2>
+                <div class="contact-info">
+                    <p><i class="fa-solid fa-phone"></i> +92 (347) 7566-487</p>
+                    <p><i class="fa-solid fa-envelope"></i> hturab615@gmail.com</p>
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="mailto:hturab615@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </section>
+
+            <section class="bento-card contact-form-card span-3">
+                <h2>Get In Touch</h2>
+                <!-- TODO: Replace YOUR_FORM_ID with your actual Formspree form ID from https://formspree.io -->
+                <form class="contact-form" action="https://formspree.io/f/xpqjagvq" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Your message..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fa-solid fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </section>
+
         </main>
+
+        <footer class="site-footer" id="download">
+            <p>© 2026 Turab Haider. All Rights Reserved.</p>
+            <a href="Resume_[Turab_Haider].pdf" download class="download-btn">
+                <i class="fa-solid fa-download"></i> Download Resume
+            </a>
+        </footer>
     </div>
+
     <script src="js/main.js"></script>
 </body>
 </html>
