@@ -12,6 +12,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     
+    <!-- Preload critical assets for instant loading -->
+    <link rel="preload" href="images/profile.jpg" as="image">
+    <link rel="preload" href="images/candy-crush-demo.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="images/banking-demo.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="images/assembly-demo.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="images/app-demo.mp4" as="video" type="video/mp4">
+    
     <!-- Critical CSS first -->
     <link rel="stylesheet" href="css/style.css">
     
@@ -162,7 +169,7 @@
                             <div class="content-wrapper">
                                 <p>A graphical game featuring complex grid logic, candy matching algorithms, and smooth animations using the SFML library.</p>
                                 <div class="project-preview">
-                                    <video src="images/candy-crush-demo.mp4" muted loop preload="none"></video>
+                                    <video data-src="images/candy-crush-demo.mp4" muted loop preload="metadata" class="lazy-video"></video>
                                 </div>
                             </div>
                         </div>
@@ -182,7 +189,7 @@
                             <div class="content-wrapper">
                                 <p>A robust console application handling user logins, secure transactions, withdrawals, and account management logic.</p>
                                 <div class="project-preview">
-                                    <video src="images/banking-demo.mp4" muted loop preload="none"></video>
+                                    <video data-src="images/banking-demo.mp4" muted loop preload="metadata" class="lazy-video"></video>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +209,7 @@
                             <div class="content-wrapper">
                                 <p>Low-level game development interacting directly with video memory and keyboard interrupts for high-performance typing mechanics.</p>
                                 <div class="project-preview">
-                                    <video src="images/assembly-demo.mp4" muted loop preload="none"></video>
+                                    <video data-src="images/assembly-demo.mp4" muted loop preload="metadata" class="lazy-video"></video>
                                 </div>
                             </div>
                         </div>
@@ -222,7 +229,7 @@
                             <div class="content-wrapper">
                                 <p>Developing a mobile solution with local notifications, offline storage, and real-time database integration.</p>
                                 <div class="project-preview portrait">
-                                    <video src="images/app-demo.mp4" muted loop preload="none"></video>
+                                    <video data-src="images/app-demo.mp4" muted loop preload="metadata" class="lazy-video"></video>
                                 </div>
                             </div>
                         </div>
@@ -318,5 +325,16 @@
     </div>
 
     <script src="js/main.js"></script>
+    
+    <!-- Register Service Worker for offline caching and instant repeat visits -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/js/sw.js')
+                    .then(reg => console.log('SW registered'))
+                    .catch(err => console.log('SW registration failed'));
+            });
+        }
+    </script>
 </body>
 </html>

@@ -317,7 +317,7 @@ body.light-mode .theme-capsule:hover {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 90px 20px 60px; /* Fixed top padding for consistent nav spacing */
+    padding: 100px 20px 60px; /* nav(20) + navHeight(~50) + gap(30) = 100 */
     position: relative;
     z-index: 2;
     width: 100%;
@@ -590,6 +590,53 @@ body.light-mode .timeline-marker {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Loading skeleton animation for videos */
+.project-preview::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.03) 0%,
+        rgba(255, 255, 255, 0.08) 50%,
+        rgba(255, 255, 255, 0.03) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Hide shimmer when video is loaded */
+.project-preview:has(video[src]:not([src=""])) video:not(.loading)::before,
+.project-preview.loaded::before {
+    opacity: 0;
+}
+
+/* Ensure video appears above skeleton */
+.project-preview video {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+body.light-mode .project-preview::before {
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.02) 0%,
+        rgba(0, 0, 0, 0.06) 50%,
+        rgba(0, 0, 0, 0.02) 100%
+    );
+    background-size: 200% 100%;
 }
 
 .project-preview:hover {
@@ -1199,7 +1246,7 @@ body.light-mode .download-btn:hover {
 /* Large Tablets / Small Laptops */
 @media (max-width: 1024px) {
     .container {
-        padding: 85px 16px 50px;
+        padding: 95px 16px 50px;
     }
     
     .bento-grid {
@@ -1255,7 +1302,7 @@ body.light-mode .download-btn:hover {
     }
     
     .container {
-        padding: 90px 14px 40px;
+        padding: 95px 14px 40px;
     }
     
     .bento-grid {
@@ -1416,7 +1463,7 @@ body.light-mode .download-btn:hover {
     }
     
     .container {
-        padding: 100px 14px 40px;
+        padding: 85px 14px 40px;
     }
     
     .pill-nav {
@@ -1500,7 +1547,7 @@ body.light-mode .download-btn:hover {
     }
     
     .container {
-        padding: 75px 12px 40px;
+        padding: 80px 12px 40px;
     }
     
     h1 {
@@ -1550,7 +1597,7 @@ body.light-mode .download-btn:hover {
     }
     
     .container {
-        padding: 85px 12px 35px;
+        padding: 75px 12px 35px;
     }
     
     .nav-container {
@@ -1800,7 +1847,7 @@ body.light-mode .download-btn:hover {
     }
     
     .container {
-        padding: 60px 10px 35px;
+        padding: 70px 10px 35px;
     }
 }
 
@@ -1834,6 +1881,10 @@ body.light-mode .download-btn:hover {
     .nav-container {
         top: 8px;
         gap: 3px;
+    }
+    
+    .container {
+        padding: 60px 8px 30px;
     }
     
     .pill-nav {
