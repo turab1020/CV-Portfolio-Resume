@@ -1,17 +1,14 @@
-// --- ACCORDION TOGGLE FUNCTION (Global) ---
+/**
+ * Handle accordion logic for the Experience and Projects timelines.
+ * Toggles the 'active' class and manages video autoplay/pause.
+ */
 function toggleAccordion(element) {
-    // Check if already active
     const isActive = element.classList.contains('active');
     
-    // Close all other accordions (optional - remove if you want multiple open)
-    // document.querySelectorAll('.timeline-item.active').forEach(item => {
-    //     item.classList.remove('active');
-    // });
-    
-    // Toggle current item
     if (isActive) {
         element.classList.remove('active');
-        // Pause video when closing
+        
+        // Pause the video if the user closes the card
         const video = element.querySelector('video');
         if (video) {
             video.pause();
@@ -19,21 +16,27 @@ function toggleAccordion(element) {
         }
     } else {
         element.classList.add('active');
-        // Play video when opening
+        
+        // Auto-play the video when the card opens
         const video = element.querySelector('video');
         if (video) {
-            video.play().catch(() => {});
+            video.play().catch(() => {
+                // Autoplay might be blocked by the browser, which is fine
+            });
         }
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- DARK/LIGHT MODE TOGGLE ---
+    
+    /* * Theme Management
+     * Switches between Dark (default) and Light modes
+     */
     const themeToggleBtn = document.getElementById('theme-toggle');
     const themeIcon = themeToggleBtn.querySelector('i');
     const body = document.body;
 
-    // Check for saved user preference
+    // Check if the user has a saved preference
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme === 'light') {
         body.classList.add('light-mode');
@@ -43,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggleBtn.addEventListener('click', () => {
         body.classList.toggle('light-mode');
         
-        // Toggle Icon and Save Preference
+        // Update the icon and save state to localStorage
         if (body.classList.contains('light-mode')) {
             themeIcon.classList.replace('fa-sun', 'fa-moon');
             localStorage.setItem('theme', 'light');
@@ -53,47 +56,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- CARD STAGGER ANIMATION ---
+    /*
+     * Entry Animations
+     * Stagger the reveal of bento cards when the page loads
+     */
     const cards = document.querySelectorAll('.bento-card');
     const observerOptions = { threshold: 0.1 };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
+                // Add a small delay for each card based on its index
                 setTimeout(() => {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
-                }, index * 120); // 120ms delay for nice stagger
+                }, index * 120);
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
+    // Initialize hidden state
     cards.forEach(card => {
-        // Initial state before animation
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
         observer.observe(card);
     });
 
-    // --- VIDEO PLAYBACK ON HOVER ---
+    /*
+     * Video Playback Logic
+     * Videos play on hover, but pause when the mouse leaves
+     */
     const timelineItems = document.querySelectorAll('.timeline-item');
     
     timelineItems.forEach(item => {
         const video = item.querySelector('video');
         if (video) {
-            // Pause video initially
             video.pause();
             
-            // Play video when timeline item is hovered or active
             item.addEventListener('mouseenter', () => {
-                video.play().catch(() => {
-                    // Handle autoplay restriction silently
-                });
+                video.play().catch(() => {});
             });
             
             item.addEventListener('mouseleave', () => {
-                // Only pause if the item is not in active/clicked state
+                // Only pause if the card isn't currently open/active
                 if (!item.classList.contains('active')) {
                     video.pause();
                     video.currentTime = 0;
@@ -102,48 +108,117 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- PILL NAVIGATION ACTIVE STATE ON SCROLL ---
+    /*
+     * Scroll Spy Navigation
+     * Updates the active pill link based on where the user is on the page
+     * Always keeps one section active - no gaps in highlighting
+     */
     const sections = document.querySelectorAll('section[id], header[id], footer[id]');
     const navLinks = document.querySelectorAll('.pill-nav-link');
+    
+    // Map nav links to their corresponding section IDs
+    const navSectionMap = {
+        'profile': 'Home',
+        'about': 'About', 
+        'projects': 'Projects',
+        'contact': 'Contact'
+    };
 
     const updateActiveNav = () => {
-        let currentSection = '';
-        const scrollPosition = window.scrollY + 150; // Offset for fixed nav
+        const scrollPosition = window.scrollY;
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
-
+        const headerOffset = windowHeight * 0.3; // 30% of viewport as trigger point
+        
+        let activeSection = 'profile'; // Default to first section
+        
+        // Find the section that's currently most visible
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
+            const sectionBottom = sectionTop + sectionHeight;
             
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                currentSection = section.getAttribute('id');
+            // Check if we've scrolled past the start of this section
+            // Use a trigger point that's 30% down from the top of the viewport
+            if (scrollPosition + headerOffset >= sectionTop) {
+                const sectionId = section.getAttribute('id');
+                // Only update if this section has a corresponding nav link
+                if (navSectionMap[sectionId]) {
+                    activeSection = sectionId;
+                }
             }
         });
 
-        // If we're at the very top, set Home as active
-        if (window.scrollY < 100) {
-            currentSection = 'profile';
+        // Edge case: User is at the very top - always show Home
+        if (scrollPosition < 50) {
+            activeSection = 'profile';
         }
         
-        // If we're at the bottom of the page, set Download as active
-        if (window.scrollY + windowHeight >= documentHeight - 50) {
-            currentSection = 'download';
+        // Edge case: User is at/near the very bottom - show Contact
+        if (scrollPosition + windowHeight >= documentHeight - 100) {
+            activeSection = 'contact';
         }
 
+        // Apply active class to the correct link
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href') === `#${currentSection}`) {
+            const href = link.getAttribute('href');
+            if (href === `#${activeSection}`) {
                 link.classList.add('active');
             }
         });
     };
 
-    // Update on scroll
-    window.addEventListener('scroll', updateActiveNav);
+    // Use requestAnimationFrame for smooth scroll spy updates
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                updateActiveNav();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
     
-    // Initial check
-    updateActiveNav();
+    updateActiveNav(); // Run once on load
+
+    /*
+     * Hide/Show Navigation on Scroll
+     * Shows when scrolling UP or at the top, hides when scrolling DOWN
+     */
+    const navContainer = document.querySelector('.nav-container');
+    let lastScrollY = window.scrollY;
+    let isNavHidden = false;
     
-    console.log("%c Mesh Gradient System Active ", "background: #222; color: #bada55; font-weight: bold;");
+    const handleNavVisibility = () => {
+        const currentScrollY = window.scrollY;
+        const scrollDelta = currentScrollY - lastScrollY;
+        
+        // Always show nav at the very top of the page
+        if (currentScrollY < 60) {
+            navContainer.classList.remove('nav-hidden');
+            isNavHidden = false;
+            lastScrollY = currentScrollY;
+            return;
+        }
+        
+        // Scrolling DOWN - hide nav
+        if (scrollDelta > 8 && !isNavHidden) {
+            navContainer.classList.add('nav-hidden');
+            isNavHidden = true;
+        }
+        
+        // Scrolling UP - show nav
+        if (scrollDelta < -8 && isNavHidden) {
+            navContainer.classList.remove('nav-hidden');
+            isNavHidden = false;
+        }
+        
+        lastScrollY = currentScrollY;
+    };
+    
+    window.addEventListener('scroll', handleNavVisibility, { passive: true });
+
+    console.log("System initialized successfully.");
 });
