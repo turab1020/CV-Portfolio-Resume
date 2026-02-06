@@ -90,6 +90,7 @@ body {
     font-size: clamp(15px, 2.5vw, 17px); /* Fluid base font size */
     -webkit-text-size-adjust: 100%; /* Prevent iOS text size adjustment */
     -ms-text-size-adjust: 100%; /* IE/Edge support */
+    text-size-adjust: 100%; /* Standard property */
     -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
 }
 
@@ -1415,7 +1416,7 @@ body.light-mode .download-btn:hover {
     }
     
     .container {
-        padding: 85px 14px 40px;
+        padding: 100px 14px 40px;
     }
     
     .pill-nav {
@@ -1549,7 +1550,7 @@ body.light-mode .download-btn:hover {
     }
     
     .container {
-        padding: 70px 12px 35px;
+        padding: 85px 12px 35px;
     }
     
     .nav-container {
