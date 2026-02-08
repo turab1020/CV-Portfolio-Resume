@@ -12,7 +12,7 @@ A modern, responsive CV/Portfolio website built with HTML, CSS, and JavaScript f
 ## 🔗 Links
 
 - **GitHub:** [github.com/turab1020/CV-Portfolio-Resume](https://github.com/turab1020/CV-Portfolio-Resume)
-- **Visit Live:** [Resume_[Turab Haider]](https://cv-portfolio-resume.vercel.app)
+- **Visit Live:** [Turab Haider | CS Portfolio](https://turab-haider-cv.vercel.app)
 
 ## ✨ Features
 
@@ -38,12 +38,21 @@ A modern, responsive CV/Portfolio website built with HTML, CSS, and JavaScript f
 - 🎯 Bento grid layout with Flexbox components
 - ⚡ Smooth scroll navigation with active state tracking
 - 🎬 Project video previews with hover-to-play
+- 🔗 Social links (GitHub, LinkedIn, Email)
+
+### Performance Optimizations
+- 🚀 **Video Preloading** - Smart lazy loading with `data-src` attributes
+- 📦 **Asset Preload Hints** - Critical resources preloaded in HTML head
+- 🌐 **Network-Aware Loading** - Adapts to connection speed (4G/3G/2G)
+- 💾 **Service Worker Caching** - Instant loading on repeat visits
+- ✨ **Loading Shimmer** - Visual feedback while videos load
+- 🎯 **GPU Acceleration** - Hardware-accelerated animations
 
 ## 🛠️ Technologies Used
 
 - **HTML5** - Semantic markup
 - **CSS3** - Flexbox, CSS Variables, Animations, Media Queries
-- **JavaScript** - DOM manipulation, LocalStorage, IntersectionObserver
+- **JavaScript** - DOM manipulation, LocalStorage, IntersectionObserver, Service Workers
 - **Font Awesome** - Icons
 - **Google Fonts** - Inter font family
 - **Formspree** - Contact form backend
@@ -56,10 +65,10 @@ cv-portfolio/
 ├── css/
 │   └── style.css       # All styles including responsive
 ├── js/
-│   └── main.js         # JavaScript functionality
+│   ├── main.js         # JavaScript functionality
+│   └── sw.js           # Service worker for caching
 ├── images/
 │   ├── profile.jpg     # Profile photo
-│   ├── noise.png       # Grain overlay texture
 │   └── *.mp4           # Project demo videos
 └── README.md           # Project documentation
 ```
@@ -90,9 +99,12 @@ This project can be deployed on any static hosting platform:
 ## 📱 Responsive Breakpoints
 
 - **Desktop:** 1024px+
-- **Tablet:** 768px - 1024px
+- **Large Tablet:** 900px - 1024px
+- **Tablet:** 768px - 900px
 - **Mobile:** 480px - 768px
-- **Small Mobile:** < 480px
+- **Small Mobile:** 320px - 480px
+- **Extra Small:** < 320px
+- **Landscape Mode:** Optimized for mobile landscape orientation
 
 ## 📝 License
 
